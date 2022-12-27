@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // for (var i = 0; i < 8; i++) {
+        //     for (var j = 0; j <= i; j++) { document.write('^'); } document.write(''); }
+
+        // function drawTree(h) {
+        //     for (var i = 0; i <= h; i++) {
+        //         var star = '';
+        //         for (var k = 0; k <= 1; k++) { star += ' '; };
+        //         for (var j = 0; j <= i; j++) { star += '*'; };
+        //     }
+        //     ; console.log(star);
+        // };
+
+        // drawTree(5);
+
+        function drawTree(height) {
+            for (var i = 0; i < height; i++) {
+                var star = '*';
+                var space = ' ';
+
+                for (var j = 1; j <= i; j++) {
+                    star = star + '**';
+                }
+
+                var spacesBefore = space.repeat(height - i - 1);
+                star = spacesBefore + star;
+                console.log(star);
+            }
+        }
+
+        var levels = prompt('How many levels high should be the tree?');
+
+        drawTree(levels);
+
+        // https://www.796t.com/post/ZzV4Y28=.html
+        // https://zho.tidewaterschool.org/818918-christmas-tree-in-javascript-using-TKUDKR
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
+
+    </script>
+</body>
+
+</html>

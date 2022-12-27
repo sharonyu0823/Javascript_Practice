@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let year = prompt('請輸入年份: ')
+        function leap_year(yyyy) {
+            if (yyyy % 4 === 0 && yyyy % 100 !== 0) {
+                alert('是閏年');
+            } else if (yyyy % 400 === 0) {
+                alert('是閏年');
+            } else {
+                alert('是平年');
+            }
+        }
+
+        leap_year(year);
+    </script>
+</body>
+
+</html>

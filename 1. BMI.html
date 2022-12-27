@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="kg">請輸入體重(kg): <input id="kg" type="number" value="0"></label>
+    <label for="m">請輸入身高(m): <input id="m" type="number" value="0"></label>
+    <button id="btn">click</button>
+
+    <script>
+        let btn = document.getElementById('btn');
+
+        btn.addEventListener('click', function () {
+            let kg = document.getElementById('kg');
+            let m = document.getElementById('m');
+
+            // console.log(typeof Number(kg.value)); //object
+            // console.log(typeof Number(m.value));
+            // console.log(typeof btn);
+            // console.log(typeof BMI);
+
+            // let BMI = 0; 前面沒有用
+            kg = Number(kg.value);
+            let numHeight = Number(m.value);
+            // BMI = Number(kg.value) / (Number(m.value) * Number(m.value));
+            // BMI = Number(kg.value) / Math.pow(Number(m.value), 2);
+            let BMI = kg / Math.pow(numHeight, 2);
+
+            console.log(BMI);
+
+            if (BMI >= 35) {
+                console.log('體重過輕');
+            } else if (30 <= BMI && BMI < 35) {
+                console.log('中度肥胖');
+            } else if (27 <= BMI && BMI < 30) {
+                console.log('輕度肥胖');
+            } else if (24 <= BMI && BMI < 27) {
+                console.log('過重');
+            } else if (18.5 <= BMI && BMI < 24) {
+                console.log('正常');
+            } else {
+                console.log('過輕');
+            }
+        })
+
+    </script>
+
+<!-- https://www.php.cn/js-tutorial-480047.html -->
+</body>
+
+</html>

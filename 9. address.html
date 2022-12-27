@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select name="" id="select2">
+        <option value="">請選擇城市</option>
+    </select>
+    <select name="" id="selectArea">
+        <option value="">請選擇地區</option>
+    </select>
+    <select name="" id="selectRoad">
+        <option value="">請選擇路段</option>
+    </select>
+
+    <script src="./9_datas/address.js"></script>
+    <script>
+
+        let sel = document.querySelector('#select2');
+        let selArea = document.querySelector('#selectArea');
+        let selRoad = document.querySelector('#selectRoad');
+
+        //value => {"CityName":"台北市"}
+        //index => 0,1..
+        //array => [{},{}]
+
+        // ------ 把city放進選項裡面
+        ADDRESS.forEach((value, index, array) => {
+            let { CityName } = value; //解構賦值
+            sel[index + 1] = new Option(CityName, CityName);
+        })
+
+        let areas;
+
+        sel.addEventListener('change', () => {
+            selArea.options.length = 0;
+            selArea[0] = new Option('請選擇地區', '');
+            // console.log(sel.options[sel.selectedIndex].value);
+            // console.log(sel.options[sel.selectedIndex].text);
+
+            // ------ 使用者選到的city
+            let citySelected = sel.options[sel.selectedIndex].value;
+            // console.log(city);
+
+
+            // ------ 拿使用者選到的city和CityName做比較 使用者選到的放進areas裡
+            areas = ADDRESS.filter((value, index, array) => value.CityName === citySelected);
+            // console.log(areas);
+
+            // ------ areas[0] = 被選到的city 因為只有一個所以index是0
+            areas[0].AreaList.forEach((value, index, array) => {
+                let { ZipCode, AreaName } = value; //解構賦值
+                selArea[index + 1] = new Option(AreaName, AreaName);
+                // console.log(ZipCode, AreaName, index)
+            })
+
+        })
+
+        selArea.addEventListener('change', () => {
+            selRoad.options.length = 0;
+            selRoad[0] = new Option('請選擇路段', '');
+
+            let areasSelected = selArea.options[selArea.selectedIndex].value;
+            // console.log(selArea.options[selArea.selectedIndex].value);
+            // console.log(areas)
+            let roads = areas[0].AreaList.filter((value, index, array) => value.AreaName === areasSelected);
+
+            console.log(roads)
+
+            roads[0].RoadList.forEach((value, index, array) => {
+                let { RoadName } = value;
+                selRoad[index+1] = new Option(RoadName, RoadName);
+            })
+            })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="">請輸入Password: </label>
+    <input type="text" id="inputPassword">
+    <input type="button" value="click" id="button1">
+
+    <script src="8. valid.js"></script>
+    <script>
+        const btn = document.getElementById("button1");
+
+        btn.addEventListener('click', () => {
+            const inpPassword = document.querySelector('#inputPassword');
+
+            let Password = inpPassword.value;
+
+            if (checkPassword(Password)) {
+                alert(`Password ${Password}`)
+            }
+            else {
+                alert('請輸入密碼');
+            }
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

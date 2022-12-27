@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select name="" id="select2">
+        <option value="" selected>請選擇城市</option>
+    </select>
+
+    <script src="./9_datas/address.js"></script>
+    <script>
+
+        let sel = document.querySelector('#select2');
+
+        ADDRESS.forEach((value, index, array) => {
+            let { CityName } = value;
+            sel[index + 1] = new Option(CityName, index + 1);
+            // sel.options.add(new Option(CityName, index + 1))
+
+        })
+
+        sel.addEventListener('change', () => {
+            console.log(sel.options[sel.selectedIndex].value);
+            console.log(sel.options[sel.selectedIndex].text);
+        })
+
+        //My way:
+        // ADDRESS.forEach((value, index, array) => {
+        //     sel[sel.options.length] = new Option(value.CityName, [sel.options.length]);
+        //     // console.log(value.CityName);
+        // });
+
+        //Teacher's is the best!
+
+
+    </script>
+</body>
+
+</html>

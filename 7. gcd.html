@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- gcd = greatest common advisor -->
+    <!-- 計算gcd(18,48)時 -->
+    <div id="show">最大公因數: </div>
+
+    <script>
+        document.getElementById('show').innerText = gcd(48, 18);
+
+        function gcd(m, n) {
+            let remain = 0;
+            // let m, n; // 48 18
+
+            do {
+                remain = m % n;
+                m = n;
+                n = remain;
+            } while (remain !== 0)
+
+            // while 不等於0 就會使用輾轉相除法 做do的function until it is false
+
+            return m;
+        }
+
+    </script>
+</body>
+
+</html>

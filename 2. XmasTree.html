@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let levels = prompt('請輸入樹高: ');
+
+        function drawTree(height) {
+            for (let i = 0; i < height; i++) {
+                let star = '^';
+                let space = ' ';
+
+                // console.log(`me ${i}`)
+
+                for (let j = 1; j <= i; j++) {
+                    star = star + '^^'
+                    // console.log(j);
+
+
+                }
+
+                let a = '';
+
+                for (let s = 0; s < height - i - 1; s++) {
+                    a = a + ' ';
+                }
+
+                star = a + star;
+                // let spacesBefore = space.repeat(height - i -1);
+
+                // console.log(space.repeat(height - i - 1));
+                // star = spacesBefore + star;
+                console.log(star);
+
+            }
+
+            for (let n = 0; n < 2; n++) {
+                let a = '';
+
+                for (let l = 0; l < height - 1; l++) {
+                    a = a + ' ';
+                }
+
+                console.log(a + '^');
+            }
+
+            // let a = '';
+
+            // for (let l = 0; l < height - 1; l++) {
+            //     a = a + ' ';
+            // }
+
+            // console.log(a + '^');
+
+            }
+
+        drawTree(levels);
+
+    </script>
+</body>
+
+</html>

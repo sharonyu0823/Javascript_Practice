@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<select id="select1"></select>
+<select id="selectArea"></select>
+<select id="selectRoad"></select>
+
+<body>
+    <script src="address.js"></script>
+    <script>
+        let sel = document.querySelector("#select1");
+        // 將 sel 變數連結到<select id="select1"></select>
+        let selArea = document.querySelector("#selectArea");
+        // 將 selArea 變數連結到<select id="selectArea"></select>
+        let selRoad = document.querySelector("#selectRoad");
+        // 將 selRoad 變數連結到<select id="selectRoad"></select>
+
+        // ADDRESS是一個 json array
+        // forEach 會將 array 的每個 entry 都代入 => 後的 function 中處理
+        /* 第一次代入的是ADDRESS的第一個 entry (台北市)，這時引數 (value, index, array) 的值如下：
+        value => {"CityName": "臺北市", ...} (Json Object)
+        value.CityName = "臺北市"
+        value.CityEngName = "Taipei City"*/
+        /*index => 0 (Integer) 
+        array => ADDRESS 陣列本身
+        ([{},{}] 陣列) (Array)
+        [] 包起來的是 array
+        {} 包起來的是 objec */
+
+        ADDRESS.forEach((value, index, array) => {
+            let { CityName, CityEngName } = value; // 將 value.CityName assign 給 CityName 變數，value.CityEngName assign 給 CityEngName 變數
+            sel[index] = new Option(CityName, CityName);
+            // console.log(value.CityEngName);
+        });
+
+        sel.addEventListener("change", () => {
+            selArea.options.length = 0;
+            selRoad.options.length = 0;
+            // 讀取資料
+            //console.log(sel.selectedIndex);
+            let city = sel.options[sel.selectedIndex].value;
+            let areas = ADDRESS.filter((value, index, array) => value.CityName === city);
+            // filter() 的用法是要寫一個 (callback) function
+            // 篩選ADDRESS這個json array下所有的 entries，符合 CityName 的值與 city 變數的值一致的 entries 會被包成一個 array 回傳
+            // 以這個例子來講，areas 一定只有一個 entry，areas[0] 放的就是選到的城市
+            // areas[0].AreaList 是選到的城市下的 AreaList，是一個 Json Array，包含這個城市下的所有區
+            // 例如：
+            // "AreaList": [
+            //   {
+            //     "ZipCode": "100",
+            //     "AreaName": "中正區",
+            //     "AreaEngName": "Zhongzheng Dist.",
+            //     "RoadList": [
+            //       {
+            //         "RoadName": "八德路１段",
+            //         "RoadEngName": "Sec. 1, Bade Rd."
+            //       },
+            //       {
+            //         "RoadName": "三元街",
+            //         "RoadEngName": "Sanyuan St."
+            //       },
+            //       ...
+            //     ]
+            //   },
+            //   {
+            //     "ZipCode": "108",
+            //     "AreaName": "萬華區",
+            //     "AreaEngName": "Wanhua Dist.",
+            //     "RoadList": [
+            //       {
+            //         "RoadName": "三水街",
+            //         "RoadEngName": "Sanshui St."
+            //       },
+            //       {
+            //         "RoadName": "大埔街",
+            //         "RoadEngName": "Dapu St."
+            //       },
+            //       ...
+            //     ]
+            //   }
+            //   ...
+            // ]
+            // 
+            // 上面的程式可以改成下面的寫法：
+            // let areas = ADDRESS.filter(filterCity);
+            // filterCity(value, index, array)
+            // {
+            //     return value.CityName === city;
+            // }
+            //
+            // 系統會把 array 的每個 entry 丟給 filterCity() (或是任何自己取的 callback function 名稱)，
+            // callback function 的第一個 argument 是每個 entry 的值 (臺北市、基隆市等等)，
+            // 第二個 argument 是每個 entry 的 index (0, 1, ...)，
+            // 第三個 argument 是整個 array，
+            // argument 名稱也可以自己選，例如 filterCity(v, i, a) 也可以。
+            // 當 callback function 回傳 true 時，這個 entry 就會被加入 filter() 的回傳結果中，
+            // 如果沒有任何 entry 符合條件 (回傳 true)，回傳就是一個空的 array，
+            // 如果有多個 entry 符合條件，就回傳多個 entry 的 array
+            // 簡單的說就像是在 array ADDRESS 中去掉不符合條件的 entry，如果所有的 entry 都符合條件，回傳就等於是 ADDRESS，如果只有部分符合，就會回傳部分，如果沒有符合的，就回傳空的
+            // 回傳的結果array，city可能是 "臺北市" 或 "基隆市" (看選了哪一個)，如果是 "臺北市"， 那 areas 就會是只有一個 entry的array
+            // areas[0] 是 "臺北市" 這個 json object，有3個 properties (key/value)：
+            // CityName: 臺北市
+            // CityEngName: Taipei City
+            // AreaList: [{中正區}、{萬華區}...]
+            
+            areas[0].AreaList.forEach((value, index, array) => {
+                let { ZipCode, AreaName } = value; // 將 AreaList 目前的 entry 的 ZipCode 和 AreaName 的值 assign 給對應的變數
+                selArea[index] = new Option(AreaName, ZipCode);
+            });
+        });
+
+        selArea.addEventListener("change", () => {
+            selRoad.options.length = 0;
+            let city = sel.options[sel.selectedIndex].value;
+            let areas = ADDRESS.filter((value, index, array) => value.CityName === city);
+            let roads = areas[0].AreaList[selArea.selectedIndex];
+            // areas接收filter回傳的array (因為符合條件的不一定只有一筆)，areas[0]是存取這個陣列的第0個entry，areas[1]是存取這個陣列的第一個entry，0和1等等是index
+            roads.RoadList.forEach((value, index, array) => {
+                let { RoadName, RoadEngName } = value;
+                selRoad[index] = new Option(RoadName, RoadName);
+            });
+            // console.log(areas);
+        });
+
+    </script>
+</body>
+
+</html>

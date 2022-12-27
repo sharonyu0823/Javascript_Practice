@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        while (true) {
+            x = Math.floor(Math.random() * 100);
+            console.log(x);
+
+            // y = window.prompt('輸入0離開遊戲: ');
+
+            if (x > 6) {
+                console.log('數字太大');
+            } else if (x === 6) {
+                console.log('猜中數字');
+                break;
+            } else if (x === 0){
+                console.log('離開遊戲');
+                break;
+            } else {
+                console.log('不知');
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
